@@ -22,7 +22,7 @@ type relation struct {
 func NewGraph(data [][3]string) *Graph {
 	var newGraph Graph = Graph{}
 	var isThere bool = false
-	var thisNode node
+	var thisNode *node
 	var dis float64
 
 	for _, x := range data{
@@ -30,14 +30,27 @@ func NewGraph(data [][3]string) *Graph {
 		for _, y := range newGraph.Nodes{
 			if y.name == x[0]{
 				isThere = true
-				thisNode = *y
+				thisNode = y
 			}
 		}
 		if !isThere {
-			thisNode = *newGraph.addNode(x[0])
+			thisNode = newGraph.addNode(x[0])
 		}
 		dis, _ = strconv.ParseFloat(x[2], 64)
 		thisNode.addRelation(x[1], dis)
+
+		isThere = false
+		for _, y := range newGraph.Nodes{
+			if y.name == x[1]{
+				isThere = true
+				thisNode = y
+			}
+		}
+		if !isThere {
+			thisNode = newGraph.addNode(x[1])
+		}
+		dis, _ = strconv.ParseFloat(x[2], 64)
+		thisNode.addRelation(x[0], dis)
 	}
 
 	return  &newGraph
@@ -69,4 +82,3 @@ func (tNode *node) addRelation (toNode string, distance float64 ) *relation {
 	}
 	return &Rel
 }
-
