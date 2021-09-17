@@ -1,1 +1,1 @@
-# SHORT PATH MODULE
+# SHORT PATH `Using Dijkstra Algorithm`

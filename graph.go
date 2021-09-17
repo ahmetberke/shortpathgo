@@ -63,22 +63,22 @@ func (graph *Graph) addNode(name string) *node {
 }
 
 
-func (tNode *node) addRelation (toNode string, distance float64 ) *relation {
+func (fn *node) addRelation (toNode string, distance float64 ) *relation {
 	x := false
 	var Rel relation
-	for _, to := range tNode.graph.Nodes{
+	for _, to := range fn.graph.Nodes{
 		if to.name == toNode{
 			x = true
 			Rel = relation{to: *&to, distance: distance}
-			tNode.Relations = append(tNode.Relations, &Rel)
+			fn.Relations = append(fn.Relations, &Rel)
 			break
 		}
 	}
 
 	if !x {
-		newToNode := *tNode.graph.addNode(toNode)
+		newToNode := *fn.graph.addNode(toNode)
 		Rel = relation{to: &newToNode, distance: distance}
-		tNode.Relations = append(tNode.Relations, &Rel)
+		fn.Relations = append(fn.Relations, &Rel)
 	}
 	return &Rel
 }
